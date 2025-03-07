@@ -7,6 +7,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { GoGlobe } from "react-icons/go";
 import { Avatar } from "../commons/avatar";
 import { MenuItem } from "./menu-item";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 export const UserMenu = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -14,6 +15,8 @@ export const UserMenu = () => {
   const toggleOpen = useCallback(() => {
     setIsOpen((prevValue) => !prevValue);
   }, []);
+
+  const registerModal = useRegisterModal();
 
   return (
     <div className="relative">
@@ -48,7 +51,7 @@ export const UserMenu = () => {
         {isOpen && (
           <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
             <div className="flex flex-col cursor-pointer">
-              <MenuItem label="Sign up" onClick={toggleOpen} />
+              <MenuItem label="Sign up" onClick={registerModal.onOpen} />
               <MenuItem label="Log in" onClick={toggleOpen} />
 
               <hr />
