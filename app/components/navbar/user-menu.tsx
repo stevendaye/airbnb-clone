@@ -1,15 +1,24 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { signOut } from "next-auth/react";
+
+import { User } from "@prisma/client";
 
 import { AiOutlineMenu } from "react-icons/ai";
-
 import { GoGlobe } from "react-icons/go";
+
 import { Avatar } from "../commons/avatar";
 import { MenuItem } from "./menu-item";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
 
-export const UserMenu = () => {
+import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+
+interface UserMenuProps {
+  currentUser?: User | null;
+}
+
+export const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleOpen = useCallback(() => {
@@ -17,6 +26,7 @@ export const UserMenu = () => {
   }, []);
 
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   return (
     <div className="relative">
@@ -50,17 +60,68 @@ export const UserMenu = () => {
 
         {isOpen && (
           <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
-            <div className="flex flex-col cursor-pointer">
-              <MenuItem label="Sign up" onClick={registerModal.onOpen} />
-              <MenuItem label="Log in" onClick={toggleOpen} />
+            {currentUser ? (
+              <div className="flex flex-col cursor-pointer">
+                <MenuItem
+                  label="My trips"
+                  onClick={() => {
+                    toggleOpen();
+                  }}
+                />
+                <MenuItem
+                  label="My favourites"
+                  onClick={() => {
+                    toggleOpen();
+                  }}
+                />
+                <MenuItem
+                  label="My reservations"
+                  onClick={() => {
+                    toggleOpen();
+                  }}
+                />
+                <MenuItem
+                  label="My properties"
+                  onClick={() => {
+                    toggleOpen();
+                  }}
+                />
+                <MenuItem
+                  label="Airbnb my home"
+                  onClick={() => {
+                    toggleOpen();
+                  }}
+                />
 
-              <hr />
+                <hr />
 
-              <MenuItem label="Gift Cards" onClick={toggleOpen} />
-              <MenuItem label="Airbnb your home" onClick={toggleOpen} />
-              <MenuItem label="Host an experience" onClick={toggleOpen} />
-              <MenuItem label="Help Center" onClick={toggleOpen} />
-            </div>
+                <MenuItem label="Logout" onClick={signOut} />
+              </div>
+            ) : (
+              <div className="flex flex-col cursor-pointer">
+                <MenuItem
+                  label="Sign up"
+                  onClick={() => {
+                    registerModal.onOpen();
+                    toggleOpen();
+                  }}
+                />
+                <MenuItem
+                  label="Log in"
+                  onClick={() => {
+                    loginModal.onOpen();
+                    toggleOpen();
+                  }}
+                />
+
+                <hr />
+
+                <MenuItem label="Gift Cards" onClick={toggleOpen} />
+                <MenuItem label="Airbnb your home" onClick={toggleOpen} />
+                <MenuItem label="Host an experience" onClick={toggleOpen} />
+                <MenuItem label="Help Center" onClick={toggleOpen} />
+              </div>
+            )}
           </div>
         )}
       </div>

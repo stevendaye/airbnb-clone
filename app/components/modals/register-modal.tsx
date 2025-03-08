@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
-import { Modal } from "./modal";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
 import axios from "axios";
-import { Heading } from "../commons/heading";
-import { Input } from "../inputs/input";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Button } from "../commons/button";
+
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
+
+import useRegisterModal from "@/app/hooks/useRegisterModal";
+
+import { Modal } from "./modal";
+import { Heading } from "../commons/heading";
+import { Input } from "../inputs/input";
+import { Button } from "../commons/button";
 
 export const RegisterModal = () => {
   const registerModal = useRegisterModal();
