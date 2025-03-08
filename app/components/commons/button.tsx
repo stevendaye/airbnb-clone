@@ -30,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
        ${small ? "py-1" : "py-3"} ${small ? "text-sm" : "text-[16px]"} ${
         small ? "font-light" : "font-semibold"
       } ${small ? "border" : "border-2"}
-      hover:opacity-80 hover:bg-neutral-100
+      ${outline ? "hover:bg-neutral-100" : "hover:opacity-80"}
     `}
     >
       {Icon && <Icon size="24" className="absolute left-4 top-3" />}
