@@ -16,6 +16,20 @@ const font = Nunito({
 export const metadata: Metadata = {
   title: "Airbnb Clone",
   description: "Lightweight Clone of Airbnb",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: "/logo.png",
+        href: "/logo.png",
+      },
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "/logo.png",
+        href: "/logo.png",
+      },
+    ],
+  },
 };
 
 export default async function RootLayout({

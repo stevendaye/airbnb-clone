@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
@@ -85,13 +84,13 @@ export const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
 
       <div className="text-neutral-500 text-center mt-4 font-light">
@@ -101,8 +100,14 @@ export const LoginModal = () => {
             role="button"
             tabIndex={0}
             className="text-neutral-800 cursor-pointer hover:underline"
-            onKeyDown={loginModal.onClose}
-            onClick={loginModal.onClose}
+            onKeyDown={() => {
+              loginModal.onClose();
+              registerModal.onOpen();
+            }}
+            onClick={() => {
+              loginModal.onClose();
+              registerModal.onOpen();
+            }}
           >
             Resgister
           </div>

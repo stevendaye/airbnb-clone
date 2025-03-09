@@ -52,6 +52,11 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/",
   },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+  },
   debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
