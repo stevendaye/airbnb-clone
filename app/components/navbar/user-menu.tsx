@@ -6,12 +6,14 @@ import { signOut } from "next-auth/react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GoGlobe } from "react-icons/go";
 
-import { Avatar } from "../commons/avatar";
+import { Avatar } from "../common/avatar";
 import { MenuItem } from "./menu-item";
+
+import { SafeUser } from "@/app/types";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeUser } from "@/app/types";
+import useRentModal from "@/app/hooks/useRentModal";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -26,6 +28,13 @@ export const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
+
+  const onRentHome = useCallback(() => {
+    if (!currentUser) return loginModal.onOpen();
+
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -34,8 +43,8 @@ export const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           className="hidden md:block text-[16px] font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
           role="button"
           tabIndex={0}
-          onKeyDown={() => {}}
-          onClick={() => {}}
+          onKeyDown={onRentHome}
+          onClick={onRentHome}
         >
           Airbnb your home
         </div>
@@ -89,6 +98,7 @@ export const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   label="Airbnb my home"
                   onClick={() => {
                     toggleOpen();
+                    rentModal.onOpen();
                   }}
                 />
 

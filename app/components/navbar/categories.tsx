@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { Container } from "../commons/container";
+import { Container } from "../common/container";
 import { CategoryBox } from "./category-box";
 import { categories } from "@/app/utils";
 

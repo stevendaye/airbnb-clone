@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -12,9 +12,9 @@ import { AiFillGithub } from "react-icons/ai";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 import { Modal } from "./modal";
-import { Heading } from "../commons/heading";
+import { Heading } from "../common/heading";
 import { Input } from "../inputs/input";
-import { Button } from "../commons/button";
+import { Button } from "../common/button";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
 export const RegisterModal = () => {
@@ -50,6 +50,11 @@ export const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  const toggleAuth = useCallback(() => {
+    loginModal.onOpen();
+    registerModal.onClose();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="">
@@ -102,14 +107,8 @@ export const RegisterModal = () => {
             role="button"
             tabIndex={0}
             className="text-neutral-800 cursor-pointer hover:underline"
-            onKeyDown={() => {
-              loginModal.onOpen();
-              registerModal.onClose();
-            }}
-            onClick={() => {
-              loginModal.onOpen();
-              registerModal.onClose();
-            }}
+            onKeyDown={toggleAuth}
+            onClick={toggleAuth}
           >
             Log in
           </div>

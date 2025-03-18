@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
@@ -13,9 +13,9 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 import { Modal } from "./modal";
-import { Heading } from "../commons/heading";
+import { Heading } from "../common/heading";
 import { Input } from "../inputs/input";
-import { Button } from "../commons/button";
+import { Button } from "../common/button";
 
 export const LoginModal = () => {
   const router = useRouter();
@@ -56,6 +56,11 @@ export const LoginModal = () => {
     });
   };
 
+  const toggleAuth = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const bodyContent = (
     <div className="">
       <Heading title="Welcome back" subTitle="Login to your account" />
@@ -95,21 +100,15 @@ export const LoginModal = () => {
 
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex justify-center items-center gap-2">
-          <div>Don't have an account?</div>
+          <div>First time using Arirbnb</div>
           <div
             role="button"
             tabIndex={0}
             className="text-neutral-800 cursor-pointer hover:underline"
-            onKeyDown={() => {
-              loginModal.onClose();
-              registerModal.onOpen();
-            }}
-            onClick={() => {
-              loginModal.onClose();
-              registerModal.onOpen();
-            }}
+            onKeyDown={toggleAuth}
+            onClick={toggleAuth}
           >
-            Resgister
+            Create an account
           </div>
         </div>
       </div>

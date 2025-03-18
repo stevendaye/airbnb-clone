@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "../commons/container";
+import { Container } from "../common/container";
 import { Categories } from "./categories";
 import { Logo } from "./logo";
 import { Search } from "./search";

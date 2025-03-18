@@ -28,7 +28,7 @@ export const Input: React.FC<InputProps> = ({
     <div className="relative w-full mb-3 last:mb-0">
       {formatPrice && (
         <BiDollar
-          size="24"
+          size="18"
           className="text-neutral-700 absolute top-5 left-2"
         />
       )}
@@ -45,6 +45,7 @@ export const Input: React.FC<InputProps> = ({
           ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
         `}
         {...register(id, { required: `${id} must be provided` })}
+        required={required}
       />
 
       <label
