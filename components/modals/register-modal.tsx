@@ -1,27 +1,26 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
 import { signIn } from "next-auth/react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 
-import useLoginModal from "@/app/hooks/useLoginModal";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
 
 import { Modal } from "./modal";
 import { Heading } from "../common/heading";
 import { Input } from "../inputs/input";
 import { Button } from "../common/button";
+import useLoginModal from "@/hooks/useLoginModal";
 
-export const LoginModal = () => {
-  const router = useRouter();
-
+export const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
@@ -30,6 +29,7 @@ export const LoginModal = () => {
     handleSubmit,
   } = useForm<FieldValues>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -38,35 +38,37 @@ export const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn("credentials", {
-      ...data,
-      redirect: false,
-    }).then((callback) => {
-      setIsLoading(false);
-
-      if (callback?.ok) {
-        toast.success("Logged in");
-        router.refresh();
-        loginModal.onClose();
-      }
-
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    });
+    axios
+      .post("/api/register", data)
+      .then(() => {
+        registerModal.onClose();
+      })
+      .catch((error) => {
+        toast.error("Something went wrong");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const toggleAuth = useCallback(() => {
-    loginModal.onClose();
-    registerModal.onOpen();
+    loginModal.onOpen();
+    registerModal.onClose();
   }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="">
-      <Heading title="Welcome back" subTitle="Login to your account" />
+      <Heading title="Welcome to Airbnb Clone" subTitle="Create an account" />
       <Input
         id="email"
         label="Email"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+      />
+      <Input
+        id="name"
+        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -100,7 +102,7 @@ export const LoginModal = () => {
 
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex justify-center items-center gap-2">
-          <div>First time using Arirbnb</div>
+          <div>Already have an account?</div>
           <div
             role="button"
             tabIndex={0}
@@ -108,7 +110,7 @@ export const LoginModal = () => {
             onKeyDown={toggleAuth}
             onClick={toggleAuth}
           >
-            Create an account
+            Log in
           </div>
         </div>
       </div>
@@ -118,10 +120,10 @@ export const LoginModal = () => {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={loginModal.isOpen}
-      title="Login"
+      isOpen={registerModal.isOpen}
+      title="Register"
       actionLabel="Continue"
-      onClose={loginModal.onClose}
+      onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}

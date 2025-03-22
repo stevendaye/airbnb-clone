@@ -6,11 +6,11 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-import useRentModal from "@/app/hooks/useRentModal";
+import useRentModal from "@/hooks/useRentModal";
 
 import { Modal } from "./modal";
 import { Heading } from "../common/heading";
-import { categories } from "@/app/utils";
+import { categories } from "@/utils";
 import { CategoryInput } from "../inputs/category-input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { CountrySelect } from "../inputs/country-select";

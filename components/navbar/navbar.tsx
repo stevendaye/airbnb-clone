@@ -5,7 +5,7 @@ import { Categories } from "./categories";
 import { Logo } from "./logo";
 import { Search } from "./search";
 import { UserMenu } from "./user-menu";
-import { SafeUser } from "@/app/types";
+import { SafeUser } from "@/types";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
