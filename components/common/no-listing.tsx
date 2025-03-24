@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import { Heading } from "./heading";
 import { Button } from "./button";
 
-interface NoListingsProps {
+interface NoListingProps {
   title?: string;
   subTitle?: string;
   showReset?: boolean;
 }
 
-export const NoListings: React.FC<NoListingsProps> = ({
+export const NoListing: React.FC<NoListingProps> = ({
   title = "No exact matches",
   subTitle = "Try changing or removing some of your filters",
   showReset,

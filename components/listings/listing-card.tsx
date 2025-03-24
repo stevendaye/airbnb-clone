@@ -1,8 +1,8 @@
 "use client";
 
 import useCountries from "@/hooks/useCountries";
-import { SafeUser } from "@/types";
-import { Listing, Reservation } from "@prisma/client";
+import { SafeListing, SafeUser } from "@/types";
+import { Reservation } from "@prisma/client";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import { HeartButton } from "../common/heart-button";
 import { Button } from "../common/button";
 
 interface ListingCardProps {
-  data: Listing;
+  data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   actionId?: string;
@@ -93,7 +93,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
           {reservationDate ?? data.category}
         </div>
         <div className="flex items-center gap-1">
-          <div className="font-semibold">{price}</div>
+          <div className="font-semibold">$ {price}</div>
           {!reservation && <div className="font-light"> night </div>}
         </div>
 
