@@ -39,8 +39,8 @@ export const ImpageUpload: React.FC<ImageUploadProps> = ({
           <div
             role="button"
             tabIndex={0}
-            onKeyDown={() => open()}
-            onClick={() => open()}
+            onKeyDown={() => open?.()}
+            onClick={() => open?.()}
             className={`relative flex flex-col justify-center items-center cursor-pointer
             hover:opacity-70 p-20 gap-4 text-neutral-600 transition ${
               !value && "border-2 border-dashed border-neutral-300"

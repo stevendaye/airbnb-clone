@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
         w-full transition ${outline ? "bg-white" : "bg-rose-500"} ${
         outline ? "border-black" : "border-rose-500"
       } ${outline ? "text-black" : "text-white"}
-       ${small ? "py-1" : "py-3"} ${small ? "text-sm" : "text-[16px]"} ${
+       ${small ? "py-2" : "py-3"} ${small ? "text-sm" : "text-[16px]"} ${
         small ? "font-light" : "font-semibold"
       } ${small ? "border" : "border-2"}
       ${outline ? "hover:bg-neutral-100" : "hover:opacity-80"}

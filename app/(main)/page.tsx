@@ -1,13 +1,17 @@
 import getCurrentUser from "@/actions/getCurrentUer";
-import getListings from "@/actions/getListings";
+import getListings, { IListingsParams } from "@/actions/getListings";
 
 import { Container } from "@/components/common/container";
 import { NoListing } from "@/components/common/no-listing";
 import { ListingCard } from "@/components/listings/listing-card";
 
-const MainPage = async () => {
+interface MainProps {
+  params: IListingsParams;
+}
+
+const MainPage = async ({ params }: MainProps) => {
   const currentUser = await getCurrentUser();
-  const listings = await getListings();
+  const listings = await getListings(params);
 
   if (listings.length === 0) {
     return <NoListing showReset />;

@@ -11,13 +11,13 @@ import { ListingReservation } from "@/components/listings/listing-reservation";
 import { ListingBody } from "@/components/listings/listing-body";
 import { ListingHead } from "@/components/listings/listing-head";
 import { Container } from "@/components/common/container";
-import { SafeListing, SafeReservations, SafeUser } from "@/types";
+import { SafeListing, SafeReservation, SafeUser } from "@/types";
 import { categories } from "@/utils";
 
 import useLoginModal from "@/hooks/useLoginModal";
 
 interface ListingDetailProps {
-  reservations?: SafeReservations[];
+  reservations?: SafeReservation[];
   listing: SafeListing & {
     user: SafeUser;
   };
@@ -74,7 +74,7 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
       .then(() => {
         toast.success("Listing Reserved");
         setDateRange(initialDateRange);
-        router.refresh();
+        router.push("/trips");
       })
       .catch(() => {
         toast.error("Something went wrong");

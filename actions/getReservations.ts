@@ -12,14 +12,17 @@ export default async function getReservations(params: IParans) {
 
     const query: any = {};
 
+    // Reservations listed on a listing
     if (listingId) {
       query.listingId = listingId;
     }
 
+    // Trips made by connected user
     if (userId) {
       query.userId = userId;
     }
 
+    // Reservation made by other users
     if (authorId) {
       query.listing = { userId: authorId };
     }
