@@ -12,9 +12,9 @@ import { MenuItem } from "./menu-item";
 
 import { SafeUser } from "@/types";
 
-import useRegisterModal from "@/hooks/useRegisterModal";
-import useLoginModal from "@/hooks/useLoginModal";
-import useRentModal from "@/hooks/useRentModal";
+import useRegisterModal from "@/hooks/use-register-modal";
+import useLoginModal from "@/hooks/use-login-modal";
+import useRentModal from "@/hooks/use-rent-modal";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;

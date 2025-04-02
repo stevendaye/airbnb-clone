@@ -1,5 +1,5 @@
-import getCurrentUser from "@/actions/getCurrentUer";
-import getReservations from "@/actions/getReservations";
+import getCurrentUser from "@/actions/get-current-user";
+import getReservations from "@/actions/get-reservations";
 import { NoListing } from "@/components/common/no-listing";
 import { ReservationsList } from "./reservations-list";
 

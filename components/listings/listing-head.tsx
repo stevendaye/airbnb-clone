@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "@/hooks/useCountries";
+import useCountries from "@/hooks/use-countries";
 import { SafeUser } from "@/types";
 import { Heading } from "../common/heading";
 import Image from "next/image";

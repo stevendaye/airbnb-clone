@@ -1,6 +1,6 @@
 import prisma from "@/lib/prismadb";
 
-import getCurrentUser from "./getCurrentUer";
+import getCurrentUser from "./get-current-user";
 
 export default async function getFavouriteListings() {
   try {

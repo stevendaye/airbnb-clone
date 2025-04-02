@@ -1,8 +1,8 @@
-import getCurrentUser from "@/actions/getCurrentUer";
+import getCurrentUser from "@/actions/get-current-user";
 
 import { NoListing } from "@/components/common/no-listing";
 import { FavouritesList } from "./favourites-list";
-import getFavouriteListings from "@/actions/getFavouriteListings";
+import getFavouriteListings from "@/actions/get-favourite-listings";
 
 const FavouritesPage = async () => {
   const favourites = await getFavouriteListings();

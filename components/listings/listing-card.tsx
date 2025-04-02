@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "@/hooks/useCountries";
+import useCountries from "@/hooks/use-countries";
 import { SafeListing, SafeReservation, SafeUser } from "@/types";
 import { format } from "date-fns";
 import Image from "next/image";

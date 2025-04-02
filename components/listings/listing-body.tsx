@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "@/hooks/useCountries";
+import useCountries from "@/hooks/use-countries";
 import { SafeUser } from "@/types";
 import { IconType } from "react-icons";
 import { Avatar } from "../common/avatar";

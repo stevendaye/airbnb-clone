@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 
 import { SafeUser } from "@/types";
 
-import useLoginModal from "./useLoginModal";
+import useLoginModal from "./use-login-modal";
 import { useRouter } from "next/navigation";
 
 interface IUseFavourite {

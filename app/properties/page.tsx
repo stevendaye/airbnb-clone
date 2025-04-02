@@ -1,5 +1,5 @@
-import getCurrentUser from "@/actions/getCurrentUer";
-import getListings from "@/actions/getListings";
+import getCurrentUser from "@/actions/get-current-user";
+import getListings from "@/actions/get-listings";
 import { NoListing } from "@/components/common/no-listing";
 import { PropertiesList } from "./properties-list";
 

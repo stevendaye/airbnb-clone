@@ -14,7 +14,7 @@ import { Container } from "@/components/common/container";
 import { SafeListing, SafeReservation, SafeUser } from "@/types";
 import { categories } from "@/utils";
 
-import useLoginModal from "@/hooks/useLoginModal";
+import useLoginModal from "@/hooks/use-login-modal";
 
 interface ListingDetailProps {
   reservations?: SafeReservation[];

@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-import useRentModal from "@/hooks/useRentModal";
+import useRentModal from "@/hooks/use-rent-modal";
 
 import { Modal } from "./modal";
 import { Heading } from "../common/heading";
@@ -74,16 +74,17 @@ export const RentModal = () => {
     });
   };
 
-  const onBackStep = () => {
+  const onStepBackward = () => {
     setStep((prevValue) => prevValue - 1);
   };
-  const onNextStep = () => {
+
+  const onStepForward = () => {
     setStep((prevValue) => prevValue + 1);
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.PRICE) {
-      return onNextStep();
+      return onStepForward();
     }
 
     setIsLoading(true);
@@ -268,7 +269,7 @@ export const RentModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step === STEPS.CATEGORY ? undefined : onBackStep}
+      secondaryAction={step === STEPS.CATEGORY ? undefined : onStepBackward}
       title="Airbnb your home"
       body={bodyContent}
     />

@@ -9,13 +9,13 @@ import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 
-import useRegisterModal from "@/hooks/useRegisterModal";
+import useRegisterModal from "@/hooks/use-register-modal";
 
 import { Modal } from "./modal";
 import { Heading } from "../common/heading";
 import { Input } from "../inputs/input";
 import { Button } from "../common/button";
-import useLoginModal from "@/hooks/useLoginModal";
+import useLoginModal from "@/hooks/use-login-modal";
 
 export const RegisterModal = () => {
   const loginModal = useLoginModal();

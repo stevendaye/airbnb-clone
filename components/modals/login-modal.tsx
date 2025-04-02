@@ -9,8 +9,8 @@ import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 
-import useLoginModal from "@/hooks/useLoginModal";
-import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/use-login-modal";
+import useRegisterModal from "@/hooks/use-register-modal";
 
 import { Modal } from "./modal";
 import { Heading } from "../common/heading";

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 import { z } from "zod";
 
-import getCurrentUser from "@//actions/getCurrentUer";
+import getCurrentUser from "@/actions/get-current-user";
 
 const listingSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
