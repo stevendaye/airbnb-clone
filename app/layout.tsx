@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import ToasterProvider from "@/components/providers/ToasterProvider";
 
 import "./globals.css";
@@ -11,8 +11,9 @@ import { RentModal } from "@/components/modals/rent-modal";
 
 import getCurrentUser from "@/actions/get-current-user";
 import { SearchModal } from "@/components/modals/search-modal";
+import { FooterMenu } from "@/components/footer/footer-menu";
 
-const font = Nunito({
+const font = Montserrat({
   subsets: ["latin"],
 });
 
@@ -43,8 +44,8 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
 
   return (
-    <html lang="en">
-      <body className={font.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${font.className} bg-background`} suppressHydrationWarning>
         <ToasterProvider />
         <RentModal />
         <RegisterModal />
@@ -53,6 +54,8 @@ export default async function RootLayout({
         <Navbar currentUser={currentUser} />
 
         <div className="pb-20 pt-28">{children}</div>
+
+        <FooterMenu />
       </body>
     </html>
   );

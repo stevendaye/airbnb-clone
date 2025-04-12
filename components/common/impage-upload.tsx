@@ -1,9 +1,9 @@
 "use client";
 
+import { useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useCallback } from "react";
-import { CldUploadWidget } from "next-cloudinary";
 
+import { CldUploadWidget } from "next-cloudinary";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
 declare global {
@@ -11,27 +11,37 @@ declare global {
 }
 
 interface ImageUploadProps {
-  value: string;
-  onChange: (value: string) => void;
+  imagesSrc: string[];
+  onChange: (value: string[]) => void;
 }
 
 export const ImpageUpload: React.FC<ImageUploadProps> = ({
-  value,
+  imagesSrc,
   onChange,
 }) => {
+  const latestImagesRef = useRef(imagesSrc);
+
   const handleUpload = useCallback(
     (result: any) => {
-      onChange(result.info.secure_url);
+      const newUrl = result.info.secure_url;
+      const updatedImages = [...latestImagesRef.current, newUrl];
+
+      console.log("updatedImages: ", updatedImages);
+      onChange(updatedImages);
     },
     [onChange]
   );
+
+  useEffect(() => {
+    latestImagesRef.current = imagesSrc;
+  }, [imagesSrc]);
 
   return (
     <CldUploadWidget
       onSuccess={handleUpload}
       uploadPreset="airbnb_properties"
       options={{
-        maxFiles: 1,
+        maxFiles: 5,
       }}
     >
       {({ open }) => {
@@ -41,25 +51,32 @@ export const ImpageUpload: React.FC<ImageUploadProps> = ({
             tabIndex={0}
             onKeyDown={() => open?.()}
             onClick={() => open?.()}
-            className={`relative flex flex-col justify-center items-center cursor-pointer
-            hover:opacity-70 p-20 gap-4 text-neutral-600 transition ${
-              !value && "border-2 border-dashed border-neutral-300"
-            } `}
+            className="relative flex flex-col items-center cursor-pointer hover:opacity-70 p-4 gap-4
+            text-neutral-600 transition border-2 border-dashed border-neutral-300"
           >
-            <MdOutlineAddPhotoAlternate size={60} />
-            <div className="font-semibold text-lg">Click to upload</div>
-            {value && (
-              <div className="absolute inset-0 w-full h-full">
-                <Image
-                  src={value}
-                  fill
-                  style={{
-                    objectFit: "cover",
-                  }}
-                  alt="Property's Photo"
-                  className="rounded-xl"
-                />
+            {imagesSrc.length > 0 && (
+              <div className="grid grid-cols-2 gap-2 w-full">
+                {imagesSrc.map((src) => (
+                  <div
+                    key={src}
+                    className="relative w-full aspect-square rounded-lg overflow-hidden"
+                  >
+                    <Image
+                      src={src}
+                      fill
+                      className="object-cover"
+                      alt={`Uploaded image ${src}`}
+                    />
+                  </div>
+                ))}
               </div>
+            )}
+
+            {imagesSrc.length === 0 && (
+              <>
+                <MdOutlineAddPhotoAlternate size={60} />
+                <div className="font-semibold text-lg">Click to upload</div>
+              </>
             )}
           </div>
         );

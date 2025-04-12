@@ -1,31 +1,33 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-
 import { useRouter } from "next/navigation";
+
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import useRentModal from "@/hooks/use-rent-modal";
 
 import { Modal } from "./modal";
 import { Heading } from "../common/heading";
-import { categories } from "@/utils";
+import { categories, amenities } from "@/utils";
 import { CategoryInput } from "../inputs/category-input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { CountrySelect } from "../inputs/country-select";
 import { Counter } from "../inputs/counter";
 import { ImpageUpload } from "../common/impage-upload";
 import { Input } from "../inputs/input";
-import toast from "react-hot-toast";
+import { AmenityInput } from "../inputs/amenity";
 
 enum STEPS {
   CATEGORY = 0,
-  LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  AMENITIES = 1,
+  LOCATION = 2,
+  INFO = 3,
+  IMAGES = 4,
+  DESCRIPTION = 5,
+  PRICE = 6,
 }
 
 export const RentModal = () => {
@@ -43,27 +45,29 @@ export const RentModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       category: "",
-      location: null,
+      amenities: [],
+      locationValue: null,
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      imageSrc: "",
+      imagesSrc: [],
       price: 1,
       title: "",
       description: "",
     },
   });
 
+  const amenitiesValues = watch("amenities");
   const category = watch("category");
-  const location = watch("location");
+  const locationValue = watch("locationValue");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
-  const imageSrc = watch("imageSrc");
+  const imagesSrc = watch("imagesSrc");
 
   const MapLocation = useMemo(
     () => dynamic(() => import("../common/map-location"), { ssr: false }),
-    [location]
+    [locationValue]
   );
 
   const setCustomValue = (id: string, value: any) => {
@@ -128,6 +132,32 @@ export const RentModal = () => {
   let bodyContent;
 
   switch (step) {
+    case STEPS.AMENITIES:
+      bodyContent = (
+        <div className="flex flex-col gap-8">
+          <Heading
+            title="What does your place offer?"
+            subTitle="What utilities do your guests find in this property?"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+            {amenities.map((item) => (
+              <div key={item.label} className="col-span-1">
+                <AmenityInput
+                  onClick={(amenities) =>
+                    setCustomValue("amenities", amenities)
+                  }
+                  selected={amenitiesValues.includes(item.label)}
+                  label={item.label}
+                  icon={item.icon}
+                  amenities={amenitiesValues}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+      break;
+
     case STEPS.LOCATION:
       bodyContent = (
         <div className="flex flex-col gap-8">
@@ -136,10 +166,10 @@ export const RentModal = () => {
             subTitle="Where do guests find you?"
           />
           <CountrySelect
-            value={location}
-            onChange={(value) => setCustomValue("location", value)}
+            value={locationValue}
+            onChange={(value) => setCustomValue("locationValue", value)}
           />
-          <MapLocation center={location?.latlng} />
+          <MapLocation center={locationValue?.latlng} />
         </div>
       );
       break;
@@ -183,8 +213,8 @@ export const RentModal = () => {
             subTitle="Show guests what your place looks like!"
           />
           <ImpageUpload
-            value={imageSrc}
-            onChange={(value) => setCustomValue("imageSrc", value)}
+            imagesSrc={imagesSrc}
+            onChange={(srcs) => setCustomValue("imagesSrc", srcs)}
           />
         </div>
       );

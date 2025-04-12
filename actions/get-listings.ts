@@ -31,7 +31,7 @@ export default async function getListings(searchParams: IListingsParams) {
     }
 
     if (guestCount) {
-      query.guessCount = { gte: +guestCount };
+      query.guestCount = { gte: +guestCount };
     }
 
     if (roomCount) {

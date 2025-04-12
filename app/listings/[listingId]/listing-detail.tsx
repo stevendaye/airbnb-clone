@@ -12,9 +12,11 @@ import { ListingBody } from "@/components/listings/listing-body";
 import { ListingHead } from "@/components/listings/listing-head";
 import { Container } from "@/components/common/container";
 import { SafeListing, SafeReservation, SafeUser } from "@/types";
-import { categories } from "@/utils";
+import { amenities, categories } from "@/utils";
 
 import useLoginModal from "@/hooks/use-login-modal";
+import useCountries from "@/hooks/use-countries";
+import useListingLocation from "@/hooks/use-listing-location";
 
 interface ListingDetailProps {
   reservations?: SafeReservation[];
@@ -35,6 +37,7 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
   currentUser,
   reservations = [],
 }) => {
+  const { onSetLocation } = useListingLocation();
   const loginModal = useLoginModal();
   const router = useRouter();
 
@@ -54,9 +57,15 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
     return dates;
   }, [reservations]);
 
+  const { getByValue } = useCountries();
+
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+
+  const country = getByValue(listing.locationValue)?.label;
+  const region = getByValue(listing.locationValue)?.region;
 
   // Create Reservations
   const onCreateReservation = useCallback(() => {
@@ -88,6 +97,12 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
     return categories.find((category) => category.label === listing.category);
   }, [listing.category]);
 
+  const propertyAmenities = useMemo(() => {
+    return amenities.filter((amenity) =>
+      listing.amenities.includes(amenity.label)
+    );
+  }, [listing.amenities, amenities]);
+
   // Calculate Reservations Total Price
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -104,13 +119,27 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
     }
   }, [dateRange, listing.price]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !region || !country || !category) return;
+
+    onSetLocation({
+      category: category.label,
+      country,
+      region,
+    });
+  }, [isMounted, country, region, category?.label]);
+
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col gap-6">
           <ListingHead
             title={listing.title}
-            imageSrc={listing.imageSrc}
+            imagesSrc={listing.imagesSrc}
             locationValue={listing.locationValue}
             id={listing.id}
             currentUser={currentUser}
@@ -120,9 +149,10 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
             <ListingBody
               user={listing.user}
               category={category}
+              propertyAmenities={propertyAmenities}
               description={listing.description}
               roomCount={listing.roomCount}
-              guestCount={listing.guessCount}
+              guestCount={listing.guestCount}
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
             />

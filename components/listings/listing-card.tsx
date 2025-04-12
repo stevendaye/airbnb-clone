@@ -31,7 +31,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const router = useRouter();
   const { getByValue } = useCountries();
 
-  const location = getByValue(data.locationValue);
+  const locationValue = getByValue(data.locationValue);
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +74,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
-            src={data.imageSrc}
+            src={data.imagesSrc[0]}
             className="object-cover h-full w-full group-hover:scale-110 transition"
             alt="Listing"
             fill
@@ -86,7 +86,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         </div>
 
         <div className="font-semibold text-lg">
-          {location?.region}, {location?.label}
+          {locationValue?.region}, {locationValue?.label}
         </div>
         <div className="font-light text-neutral-500 ">
           {reservationDate ?? data.category}

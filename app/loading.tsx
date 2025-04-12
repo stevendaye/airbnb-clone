@@ -1,7 +1,9 @@
 "use client";
 
+import { Loader } from "@/components/common/loader";
+
 const LoadingPage = () => {
-  return <div>Loading...</div>;
+  return <Loader />;
 };
 
 export default LoadingPage;

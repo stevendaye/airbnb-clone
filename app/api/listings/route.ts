@@ -5,24 +5,36 @@ import { z } from "zod";
 import getCurrentUser from "@/actions/get-current-user";
 
 const listingSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
-  imageSrc: z.string().url("A valid image must be provided"),
-  category: z.string().min(1, "Category is required"),
-  roomCount: z.number().int().positive("Room count must be a positive number"),
+  title: z.string().min(3, "The title must be at least 3 characters long"),
+  description: z
+    .string()
+    .min(10, "Your place description must be at least 10 characters long"),
+  imagesSrc: z
+    .array(z.string())
+    .min(3, "You must upload at least 3 images of your place"),
+  category: z
+    .string()
+    .min(1, "The category in which your place falls is required"),
+  amenities: z
+    .array(z.string())
+    .min(2, "Your place must offer at least two amenities"),
+  roomCount: z
+    .number()
+    .int()
+    .positive("The number of room must be a positive number"),
   bathroomCount: z
     .number()
     .int()
-    .positive("Bathroom count must be a positive number"),
+    .positive("The number of bathroom must be a positive number"),
   guestCount: z
     .number()
     .int()
-    .positive("Guest count must be a positive number"),
-  location: z.object({
-    value: z.string().min(1, "Location value is required"),
+    .positive("The number of guest must be a positive number"),
+  locationValue: z.object({
+    value: z.string().min(1, "The Location of this place is required"),
   }),
   price: z.string().refine((val) => !isNaN(parseInt(val, 10)), {
-    message: "Price must be a valid number",
+    message: "The price must be a valid number",
   }),
 });
 
@@ -39,12 +51,13 @@ export async function POST(req: Request) {
       data: {
         title: parsedData.title,
         description: parsedData.description,
-        imageSrc: parsedData.imageSrc,
+        imagesSrc: parsedData.imagesSrc,
         category: parsedData.category,
+        amenities: parsedData.amenities,
         roomCount: parsedData.roomCount,
         bathroomCount: parsedData.bathroomCount,
-        guessCount: parsedData.guestCount,
-        locationValue: parsedData.location.value,
+        guestCount: parsedData.guestCount,
+        locationValue: parsedData.locationValue.value,
         price: parseInt(parsedData.price, 10),
         userId: currentUser.id,
       },

@@ -53,12 +53,13 @@ model Listing {
   userId String @db.ObjectId
   title String
   description String
-  imageSrc String
+  imagesSrc String[]
   createdAt DateTime @default(now())
+  amenities String[]
   category String
   roomCount Int
   bathroomCount Int
-  guessCount Int
+  guestCount Int
   locationValue String
   price Int
 
