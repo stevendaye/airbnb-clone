@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Airbnb Clone | Minimalistic Short Term Rental Marketplace
 
-## Getting Started
+Production Link URL: Coming soon
 
-First, run the development server:
+![Alt text](public/homepage.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is a lighweight version of Airbnb App. This clone covers the core fundamental features of Airbnb
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Status: Completed
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I built an Airbnb clone using Next.js 15, Server Actions, MongoDB, TypeScript and TailwindCSS. The project will include features like user authentication, listing a property, delete a property, view the detail of a property, reserve a property and cancel a reservation. Next.js 15 and React 19 will power the front-end, while MongoDB will be the database, prisma to communicate with the database, server actions to make queries and api calls, with TypeScript ensuring code quality and TailwindCSS providing a modern and cohesive design and finally Auth.js for authentication.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies used
 
-## Learn More
+- Frontend: React 19, Next.js 15, TailwindCSS, TypeScript
+- Backend: Next.js Server Actions, MongoDB, Prisma
+- Authentication: NextAuth (Auth.js) with social login (Google and GitHub)
+- Media Handling: Cloudinary for image uploads
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- User authentication and registration
+- Social login with Google and GitHub
+- Creating, viewing, and deleting property listings
+- Step-by-step property listing creation flow (category, location, images, description, price)
+- Interactive map and country autocomplete
+- Property reservation and cancellation
+- Trip and reservation management dashboards
+- Ability to favorite listings
+- Filter modal with advanced querying
+- Responsive UI with reusable components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project demonstrates full CRUD capabilities, server-side rendering, and modern UX practices using the latest web technologies.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### PS: This is not made by AI, but by humans: Me, Myself and I
