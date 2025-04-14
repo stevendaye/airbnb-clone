@@ -6,8 +6,10 @@ import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 declare global {
-  var cloudinary: any;
+  let cloudinary: any;
 }
 
 interface ImageUploadProps {

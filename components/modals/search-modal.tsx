@@ -15,6 +15,8 @@ import { Heading } from "../common/heading";
 import { Calendar } from "../inputs/calendar";
 import { Counter } from "../inputs/counter";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 enum STEPS {
   LOCATION = 0,
   DATE = 1,
@@ -40,7 +42,7 @@ export const SearchModal = () => {
 
   const MapLocation = useMemo(
     () => dynamic(() => import("../common/map-location"), { ssr: false }),
-    [location]
+    []
   );
 
   const onStepBackward = useCallback(() => {
@@ -111,7 +113,7 @@ export const SearchModal = () => {
     }
 
     return "Back";
-  }, []);
+  }, [step]);
 
   let bodyContent;
 

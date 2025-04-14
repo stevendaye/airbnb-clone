@@ -6,6 +6,8 @@ import qs from "query-string";
 
 import { IconType } from "react-icons";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 interface CategoryBoxProps {
   label: string;
   icon: IconType;

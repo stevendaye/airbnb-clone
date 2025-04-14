@@ -30,7 +30,7 @@ const ErrorPage: React.FC<ErrorProps> = () => {
               </p>
               <p className="text-lg md:text-xl mt-5 text-gray-500">
                 Quick fix, try reloading the page. If it does not work still,
-                stay tuned. We're getting back soon
+                stay tuned. We&apos;re getting back soon
               </p>
 
               <div className="w-full px-12 md:w-auto md:px-0 mt-5">

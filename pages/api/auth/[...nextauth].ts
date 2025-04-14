@@ -98,7 +98,7 @@ export const authOptions: AuthOptions = {
       return true;
     },
 
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       return baseUrl;
     },
   },

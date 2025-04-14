@@ -22,7 +22,7 @@ const NotFoundPage = () => {
                 Error code: 404
               </p>
               <p className="text-lg md:text-2xl mt-2 text-gray-500">
-                We can't seem to find the page you're looking for.
+                We can&apos;t seem to find the page you&apos;re looking for.
               </p>
 
               <div className="w-full px-12 md:w-auto md:px-0 mt-5">

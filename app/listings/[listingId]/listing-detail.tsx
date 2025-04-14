@@ -101,7 +101,7 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
     return amenities.filter((amenity) =>
       listing.amenities.includes(amenity.label)
     );
-  }, [listing.amenities, amenities]);
+  }, [listing.amenities]);
 
   // Calculate Reservations Total Price
   useEffect(() => {
@@ -131,7 +131,7 @@ export const ListingDetail: React.FC<ListingDetailProps> = ({
       country,
       region,
     });
-  }, [isMounted, country, region, category?.label]);
+  }, [isMounted, country, region, category, onSetLocation]);
 
   return (
     <Container>

@@ -45,7 +45,7 @@ export const ListingKnowMore: React.FC<ListingKnowMoreProps> = ({
             partial refund
           </p>
           <p className="font-medium">
-            Review this Host's full policy for details
+            Review this Host&apos;s full policy for details
           </p>
         </div>
       </div>

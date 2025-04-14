@@ -3,6 +3,8 @@
 import Select from "react-select";
 import useCountries from "@/hooks/use-countries";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 export type CountrySelectValue = {
   flag: string;
   label: string;

@@ -20,6 +20,8 @@ import { ImpageUpload } from "../common/impage-upload";
 import { Input } from "../inputs/input";
 import { AmenityInput } from "../inputs/amenity";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 enum STEPS {
   CATEGORY = 0,
   AMENITIES = 1,
@@ -67,7 +69,7 @@ export const RentModal = () => {
 
   const MapLocation = useMemo(
     () => dynamic(() => import("../common/map-location"), { ssr: false }),
-    [locationValue]
+    []
   );
 
   const setCustomValue = (id: string, value: any) => {
