@@ -26,8 +26,6 @@ export const AmenityInput: React.FC<AmenityInputProps> = ({
         selections.push(label);
       }
       onClick(selections);
-
-      console.log("selections:", selections);
     },
     [label, amenities]
   );
