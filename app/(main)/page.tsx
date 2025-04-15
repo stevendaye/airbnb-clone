@@ -5,13 +5,30 @@ import { Container } from "@/components/common/container";
 import { NoListing } from "@/components/common/no-listing";
 import { ListingCard } from "@/components/listings/listing-card";
 
-interface MainProps {
-  searchParams: IListingsParams;
-}
+const MainPage = async ({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
+  const params: IListingsParams = {
+    userId: searchParams?.userId as string,
+    guestCount: searchParams?.guestCount
+      ? parseInt(searchParams.guestCount as string)
+      : undefined,
+    roomCount: searchParams?.roomCount
+      ? parseInt(searchParams.roomCount as string)
+      : undefined,
+    bathroomCount: searchParams?.bathroomCount
+      ? parseInt(searchParams.bathroomCount as string)
+      : undefined,
+    startDate: searchParams?.startDate as string,
+    endDate: searchParams?.endDate as string,
+    location: searchParams?.location as string,
+    category: searchParams?.category as string,
+  };
 
-const MainPage = async ({ searchParams }: MainProps) => {
   const currentUser = await getCurrentUser();
-  const listings = await getListings(searchParams);
+  const listings = await getListings(params);
 
   if (listings.length === 0) {
     return <NoListing showReset />;
