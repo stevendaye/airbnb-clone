@@ -4,10 +4,12 @@ import prisma from "@/lib/prismadb";
 import getCurrentUser from "@/actions/get-current-user";
 
 interface IParams {
-  listingId: string;
+  params: Promise<{
+    listingId: string;
+  }>;
 }
 
-export async function DELETE(req: Request, { params }: { params: IParams }) {
+export async function DELETE(req: Request, { params }: IParams) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) return NextResponse.error();
