@@ -4,6 +4,7 @@ import getListings, { IListingsParams } from "@/actions/get-listings";
 import { Container } from "@/components/common/container";
 import { NoListing } from "@/components/common/no-listing";
 import { ListingCard } from "@/components/listings/listing-card";
+import { SafeListing } from "@/types";
 
 interface MainProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -43,7 +44,7 @@ const MainPage = async ({ searchParams }: MainProps) => {
         className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
         xl:grid-cols-5 2xl:grid-cols-6 gap-8"
       >
-        {listings.map((listing) => (
+        {listings.map((listing: SafeListing) => (
           <ListingCard
             key={listing.id}
             currentUser={currentUser}
