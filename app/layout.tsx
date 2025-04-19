@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import ToasterProvider from "@/components/providers/ToasterProvider";
@@ -45,12 +46,17 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${font.className} bg-background`} suppressHydrationWarning>
+      <body
+        className={`${font.className} bg-background`}
+        suppressHydrationWarning
+      >
         <ToasterProvider />
         <RentModal />
         <RegisterModal />
         <LoginModal />
-        <SearchModal />
+        <Suspense>
+          <SearchModal />
+        </Suspense>
         <Navbar currentUser={currentUser} />
 
         <div className="pb-20 pt-28">{children}</div>
