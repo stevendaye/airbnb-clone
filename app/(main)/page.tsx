@@ -4,7 +4,6 @@ import getListings, { IListingsParams } from "@/actions/get-listings";
 import { Container } from "@/components/common/container";
 import { NoListing } from "@/components/common/no-listing";
 import { ListingCard } from "@/components/listings/listing-card";
-import { SafeListing } from "@/types";
 
 interface MainProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
