@@ -1,6 +1,6 @@
 # Airbnb Clone | Minimalistic Short Term Rental Marketplace
 
-Production Link URL: Coming soon
+Production Link URL: [Property Listing App](https://airbnb-clone-xi-nine.vercel.app/)
 
 ![Alt text](public/homepage.png)
 
