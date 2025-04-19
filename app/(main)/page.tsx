@@ -5,36 +5,33 @@ import { Container } from "@/components/common/container";
 import { NoListing } from "@/components/common/no-listing";
 import { ListingCard } from "@/components/listings/listing-card";
 
-type SearchParams = { [key: string]: string | string[] | undefined };
-
-function parseSearchParams(searchParams: SearchParams): IListingsParams {
-  return {
-    userId: searchParams.userId as string,
-    guestCount: searchParams.guestCount
-      ? parseInt(searchParams.guestCount as string)
-      : undefined,
-    roomCount: searchParams.roomCount
-      ? parseInt(searchParams.roomCount as string)
-      : undefined,
-    bathroomCount: searchParams.bathroomCount
-      ? parseInt(searchParams.bathroomCount as string)
-      : undefined,
-    startDate: searchParams.startDate as string,
-    endDate: searchParams.endDate as string,
-    location: searchParams.location as string,
-    category: searchParams.category as string,
-  };
+interface MainProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const MainPage = async ({
-  searchParams = {},
-}: {
-  searchParams?: SearchParams;
-}) => {
-  const parsedParams = parseSearchParams(searchParams);
-
+const MainPage = async ({ searchParams }: MainProps) => {
   const currentUser = await getCurrentUser();
-  const listings = await getListings(parsedParams);
+
+  const resolvedSearchParams = await searchParams;
+
+  const filters: IListingsParams = {
+    userId: resolvedSearchParams.userId as string,
+    guestCount: resolvedSearchParams.guestCount
+      ? parseInt(resolvedSearchParams.guestCount as string)
+      : undefined,
+    roomCount: resolvedSearchParams.roomCount
+      ? parseInt(resolvedSearchParams.roomCount as string)
+      : undefined,
+    bathroomCount: resolvedSearchParams.bathroomCount
+      ? parseInt(resolvedSearchParams.bathroomCount as string)
+      : undefined,
+    startDate: resolvedSearchParams.startDate as string,
+    endDate: resolvedSearchParams.endDate as string,
+    location: resolvedSearchParams.location as string,
+    category: resolvedSearchParams.category as string,
+  };
+
+  const listings = await getListings(filters);
 
   if (listings.length === 0) {
     return <NoListing showReset />;

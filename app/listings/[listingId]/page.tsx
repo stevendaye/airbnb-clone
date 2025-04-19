@@ -4,14 +4,19 @@ import { NoListing } from "@/components/common/no-listing";
 import { ListingDetail } from "@/app/listings/[listingId]/listing-detail";
 import getReservations from "@/actions/get-reservations";
 
-interface IParams {
-  listingId?: string;
+interface ListingDetailPageProps {
+  params: Promise<{
+    listingId?: string;
+  }>;
 }
 
-const ListingDetailPage = async ({ params }: { params: IParams }) => {
-  const listing = await getListingById(params);
+const ListingDetailPage = async ({ params }: ListingDetailPageProps) => {
+  const resolvedParams = await params;
+
   const currentUser = await getCurrentUser();
-  const reservations = await getReservations(params);
+
+  const listing = await getListingById(resolvedParams);
+  const reservations = await getReservations(resolvedParams);
 
   if (!listing) return <NoListing />;
 
